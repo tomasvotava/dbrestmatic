@@ -19,6 +19,7 @@ except ImportError as e:
     ERROR("mysql.connector library must be installed.\nTry pip install mysql-connector")
     sys.exit(0)
 
+import database
 
 INFO("Loading configuration...")
 

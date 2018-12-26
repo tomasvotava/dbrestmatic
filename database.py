@@ -5,6 +5,8 @@
 INPUT = 0
 OUTPUT = 1
 
+PRIMARY = 0
+FOREIGN = 1
 
 data_types = [
     "int",
@@ -15,16 +17,24 @@ data_types = [
     "datetime"
 ]
 
+
+class ModelException(Exception): pass
+
 class Database:
     def __init__(self,name):
         self.name = name
         self.tables = []
         self.procedures = []
+    def __str__(self):
+        output = ""
+        for t in self.tables:
+            output += "{0}: {1}".format(t.name,", ".join([c.name for c in t.columns]))
+        return output
 
 class Table:
-    def __init__(self,name):
+    def __init__(self,name,columns=[]):
         self.name = name
-        self.columns = []
+        self.columns = columns
 
 class Procedure:
     def __init__(self,name):
@@ -41,3 +51,12 @@ class Parameter:
     def __init__(self,name,direction):
         self.name = name
         self.direction = direction
+
+class Key:
+    def __init__(self,name,key_type,references=None):
+        self.name = name
+        self.key_type = key_type
+        self.references = references
+        if (self.key_type == FOREIGN) and (self.references==None):
+            raise ModelException("Foreign key has to reference something.")
+
