@@ -1,6 +1,9 @@
 # Config with sensitive data
 config.json
 
+# stdout
+stdout.log
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
