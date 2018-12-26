@@ -21,10 +21,10 @@ data_types = [
 class ModelException(Exception): pass
 
 class Database:
-    def __init__(self,name):
+    def __init__(self,name,tables,procedures):
         self.name = name
-        self.tables = []
-        self.procedures = []
+        self.tables = tables
+        self.procedures = procedures
     def __str__(self):
         output = ""
         for t in self.tables:
@@ -60,3 +60,4 @@ class Key:
         if (self.key_type == FOREIGN) and (self.references==None):
             raise ModelException("Foreign key has to reference something.")
 
+print(Database("test",[Table("tabulka",Column("sloupec","int",None))],[]))
